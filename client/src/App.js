@@ -1,8 +1,39 @@
-import logo from "./logo.svg";
 import "./App.css";
-
+import React, { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import axios from "axios";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Booking from "./components/Booking";
+import ThankYou from "./components/ThankYou";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import SellerDashboard from "./components/SellerDashboard";
+import Error from "./components/Error";
 function App() {
-  return <div className="App"></div>;
+  // get user if any
+  const [loginStatus, setLoginStatus] = useState("");
+  useEffect(() => {
+    axios.get("http://localhost:3001/login").then((response) => {
+      if (response.data.loggedIn == true) {
+        setLoginStatus(response.data.user.email);
+      }
+    });
+  }, []);
+  return (
+    <div className="App">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/booking" element={<Booking />}></Route>
+        <Route path="/success" element={<ThankYou />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/seller-dashboard" element={<SellerDashboard />}></Route>
+        <Route path="*" element={<Error />}></Route>
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
