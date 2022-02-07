@@ -7,7 +7,7 @@ function Home() {
   return (
     <div className="flex justify-center text-center items-center flex-col">
       <h1 className="text-2xl sm:text-5xl my-5">
-        If you're looking for great burger
+        If you're looking for great donut
       </h1>
       <button
         className="py-3 px-5 rounded-xl bg-pink-500 text-white ronded"

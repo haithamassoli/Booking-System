@@ -40,23 +40,49 @@ function Login() {
   return (
     <>
       {error ? "It shouldn't be empty" : ""}
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formValue.email}
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formValue.password}
-          onChange={handleChange}
-        />
-        <button type="submit">Login</button>
+      <h1 className="text-3xl text-center mt-4">Login</h1>
+
+      <form className="md:mx-auto max-w-2xl mx-6" onSubmit={handleSubmit}>
+        <div class="mb-6">
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+          >
+            Your Email
+          </label>
+          <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500"
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formValue.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div class="mb-6">
+          <label
+            for="password"
+            class="block mb-2 text-sm font-medium text-black dark:text-black"
+          >
+            Your Password
+          </label>
+          <input
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formValue.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <button
+          className="text-white bg-pink-700 hover:bg-pink-800 focus:ring-4 focus:ring-pink-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800"
+          type="submit"
+        >
+          Login
+        </button>
       </form>
     </>
   );
