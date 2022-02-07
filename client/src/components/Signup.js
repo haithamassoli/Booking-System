@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function Signup() {
+function Signup({ setLoginStatus }) {
   const [error, setError] = useState(false);
   const [formValue, setformValue] = useState({
     email: "",
@@ -28,6 +28,7 @@ function Signup() {
         })
         .then(function (response) {
           console.log(response);
+          setLoginStatus(true);
         })
         .catch(function (error) {
           console.log(error);

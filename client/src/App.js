@@ -8,6 +8,7 @@ import Booking from "./components/Booking";
 import ThankYou from "./components/ThankYou";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Logout from "./components/Logout";
 import SellerDashboard from "./components/SellerDashboard";
 import Error from "./components/Error";
 function App() {
@@ -24,12 +25,25 @@ function App() {
     <div className="App">
       <Navbar loginStatus={loginStatus} />
       <Routes>
-        <Route path="/" element={<Home />}></Route>
+        <Route
+          path="/"
+          element={<Home setLoginStatus={setLoginStatus} />}
+        ></Route>
         <Route path="/booking" element={<Booking />}></Route>
         <Route path="/success" element={<ThankYou />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<Signup />}></Route>
+        <Route
+          path="/login"
+          element={<Login setLoginStatus={setLoginStatus} />}
+        ></Route>
+        <Route
+          path="/signup"
+          element={<Signup setLoginStatus={setLoginStatus} />}
+        ></Route>
         <Route path="/seller-dashboard" element={<SellerDashboard />}></Route>
+        <Route
+          path="/logout"
+          element={<Logout setLoginStatus={setLoginStatus} />}
+        ></Route>
         <Route path="*" element={<Error />}></Route>
       </Routes>
     </div>

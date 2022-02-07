@@ -28,13 +28,19 @@ function Navbar({ loginStatus }) {
               className="ml-4 cursor-pointer text-xl text-white hover:text-pink-200"
             >
               SignUp
-            </NavLink>{" "}
+            </NavLink>
           </>
         ) : (
           <>
             <NavLink
-              to={"/logout"}
+              to={"/seller-dashboard"}
               className="cursor-pointer text-xl text-white hover:text-pink-200"
+            >
+              Dashboard
+            </NavLink>
+            <NavLink
+              to={"/logout"}
+              className="cursor-pointer ml-4 text-xl text-white hover:text-pink-200"
             >
               Logout
             </NavLink>

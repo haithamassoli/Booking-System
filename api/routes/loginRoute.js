@@ -5,6 +5,7 @@ var mongoose = require("mongoose");
 const User = require("../models/User").model;
 
 router.post("/", function (req, res, next) {
+  console.log(req.body);
   User.find(
     { email: req.body.email, password: req.body.password },
     (err, docs) => {

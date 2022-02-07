@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function Login() {
+function Login({ setLoginStatus }) {
   const [error, setError] = useState(false);
   const [formValue, setformValue] = useState({
     email: "",
@@ -20,14 +20,25 @@ function Login() {
     // check empty value
     if (formValue.email !== "" && formValue.password !== "") {
       setError(false);
+      let config = {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+      };
       // make axios post request
       axios
-        .post("http://localhost:3001/login", {
-          email: formValue.email,
-          password: formValue.password,
-        })
+        .post(
+          "http://localhost:3001/login",
+          {
+            email: formValue.email,
+            password: formValue.password,
+          },
+          config
+        )
         .then(function (response) {
           console.log(response);
+          setLoginStatus(true);
         })
         .catch(function (error) {
           console.log(error);
@@ -36,7 +47,7 @@ function Login() {
       setError(true);
     }
   };
-  useEffect(() => {});
+
   return (
     <>
       {error ? "It shouldn't be empty" : ""}
