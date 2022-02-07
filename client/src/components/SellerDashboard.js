@@ -17,6 +17,23 @@ function SellerDashboard() {
       console.log(reservation);
     });
   }, []);
+
+  // Make the reservation if all details are filled out
+  // const accept = async () => {
+  //   let res = await fetch("http://localhost:3001/reserve", {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       ...booking,
+  //       date: datetime,
+  //       table: selection.table.id,
+  //     }),
+  //   });
+  //   res = await res.text();
+  //   console.log("Reserved: " + res);
+  // };
   return (
     <>
       {reservation == true ? (
@@ -48,7 +65,12 @@ function SellerDashboard() {
                 <button className="py-2 px-4 rounded-xl bg-pink-500 text-white ronded">
                   Delete
                 </button>
-                <button className="py-2 px-4 ml-2 rounded-xl bg-pink-500 text-white ronded">
+                <button
+                  // onClick={() => {
+                  //   accept();
+                  // }}
+                  className="py-2 px-4 ml-2 rounded-xl bg-pink-500 text-white ronded"
+                >
                   Accept
                 </button>
               </div>
