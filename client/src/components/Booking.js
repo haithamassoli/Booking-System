@@ -84,10 +84,11 @@ function Booking() {
     if (selection.time && selection.date) {
       (async (_) => {
         let datetime = getDate();
-        let res = await fetch("http://localhost:3005/availability", {
+        let res = await fetch("http://localhost:3001/availability", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
           },
           body: JSON.stringify({
             date: datetime,
@@ -103,6 +104,7 @@ function Booking() {
               : true)
         );
         setTotalTables(tables);
+        console.log(tables);
       })();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -119,7 +121,7 @@ function Booking() {
       setReservationError(true);
     } else {
       const datetime = getDate();
-      let res = await fetch("http://localhost:3005/reserve", {
+      let res = await fetch("http://localhost:3001/reserve", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -420,24 +422,22 @@ function Booking() {
                 </Transition>
               </Menu>
             </div>
-            <div className="bg-pink-600 mt-10 mx-8 rounded-xl p-10">
+            <div className="bg-pink-600 mt-20 mx-20 rounded-xl p-10 text-white">
               <div>
                 {getEmptyTables() > 0 ? (
-                  <p className="available-tables">
-                    {getEmptyTables()} available
-                  </p>
+                  <p className="mb-5">{getEmptyTables()} available</p>
                 ) : null}
 
                 {selection.date && selection.time ? (
                   getEmptyTables() > 0 ? (
-                    <div>
-                      <div className="table-key">
-                        <span className="border border-white bg-pink-500 rounded-full m-1 py-1 px-3"></span>{" "}
+                    <div className="my-10">
+                      <div className="text-white">
+                        <span className="border border-white bg-pink-500 rounded-full m-1 py-1 px-3"></span>
                         &nbsp; Available &nbsp;&nbsp;
-                        <span className="border border-white bg-white rounded-full m-1 py-1 px-3"></span>{" "}
+                        <span className="border border-white bg-white rounded-full m-1 py-1 px-3"></span>
                         &nbsp; Unavailable &nbsp;&nbsp;
                       </div>
-                      <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 items-center justify-center">
+                      <div className="grid md:grid-cols-4 mt-6 sm:grid-cols-2 grid-cols-1 items-center justify-center">
                         {getTables()}
                       </div>
                     </div>

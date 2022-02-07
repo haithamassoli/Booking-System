@@ -2,10 +2,10 @@ require("dotenv").config();
 var express = require("express");
 var path = require("path");
 var logger = require("morgan");
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 var cors = require("cors");
 var cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
+var bodyParser = require("body-parser");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -19,17 +19,10 @@ var db = mongoose.connection;
 
 // Express
 var app = express();
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 

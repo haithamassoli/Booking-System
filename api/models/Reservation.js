@@ -4,6 +4,7 @@ let reservationSchema = new mongoose.Schema({
   name: String,
   phone: Number,
   email: String,
+  status: { type: Boolean, default: false },
 });
 let Reservation = mongoose.model("Reservation", reservationSchema);
 

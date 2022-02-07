@@ -4,7 +4,7 @@ const tableSchema = require("./Table").schema;
 
 let daySchema = new mongoose.Schema({
   date: Date,
-  date: [tableSchema],
+  tables: [tableSchema],
 });
 let Day = mongoose.model("Day", daySchema);
 

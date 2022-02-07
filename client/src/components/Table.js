@@ -55,7 +55,7 @@ function Table(props) {
           <div className="text-center">{getRow2()}</div>
         </div>
 
-        <p className="text-center table-name">{props.name}</p>
+        <p className="text-center text-white">{props.name}</p>
       </div>
     </div>
   );
