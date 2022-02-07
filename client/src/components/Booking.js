@@ -420,7 +420,7 @@ function Booking() {
                 </Transition>
               </Menu>
             </div>
-            <div className="tables-display">
+            <div className="bg-pink-600 mt-10 mx-8 rounded-xl p-10">
               <div>
                 {getEmptyTables() > 0 ? (
                   <p className="available-tables">
@@ -432,18 +432,22 @@ function Booking() {
                   getEmptyTables() > 0 ? (
                     <div>
                       <div className="table-key">
-                        <span className="empty-table"></span> &nbsp; Available
-                        &nbsp;&nbsp;
-                        <span className="full-table"></span> &nbsp; Unavailable
-                        &nbsp;&nbsp;
+                        <span className="border border-white bg-pink-500 rounded-full m-1 py-1 px-3"></span>{" "}
+                        &nbsp; Available &nbsp;&nbsp;
+                        <span className="border border-white bg-white rounded-full m-1 py-1 px-3"></span>{" "}
+                        &nbsp; Unavailable &nbsp;&nbsp;
                       </div>
-                      <div>{getTables()}</div>
+                      <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 items-center justify-center">
+                        {getTables()}
+                      </div>
                     </div>
                   ) : (
-                    <p className="table-display-message">No Available Tables</p>
+                    <p className="p-5 text-center text-2xl text-white">
+                      No Available Tables
+                    </p>
                   )
                 ) : (
-                  <p className="table-display-message">
+                  <p className="p-5 text-center text-2xl text-white">
                     Please select a date and time for your reservation.
                   </p>
                 )}

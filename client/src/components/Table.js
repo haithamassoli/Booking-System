@@ -7,7 +7,11 @@ function Table(props) {
       chairs.push(
         <span
           key={i}
-          className={props.empty ? "empty-table" : "full-table"}
+          className={
+            props.empty
+              ? "border bottom-2 border-white bg-pink-500 rounded-full m-1 py-1 px-3"
+              : "border bottom-2 border-white bg-white rounded-full m-1 py-1 px-3"
+          }
         ></span>
       );
     }
@@ -19,7 +23,11 @@ function Table(props) {
       chairs2.push(
         <span
           key={i}
-          className={props.empty ? "empty-table" : "full-table"}
+          className={
+            props.empty
+              ? "border bottom-2 border-white bg-pink-500 rounded-full m-1 py-1 px-3"
+              : "border bottom-2 border-white bg-white rounded-full m-1 py-1 px-3"
+          }
         ></span>
       );
     }
@@ -27,19 +35,23 @@ function Table(props) {
   };
 
   return (
-    <div className="table-container">
+    <div className="grid items-center justify-center">
       <div
-        className={props.empty ? "table selectable-table" : "table"}
+        className={
+          props.empty
+            ? "table bg-[#f5f6fa66] p-4 m-2 cursor-pointer rounded-xl"
+            : "table text-left bg-[#f5f6fa66] p-4 m-2 rounded-xl "
+        }
         onClick={() => {
           props.empty
             ? props.selectTable(props.name, props.id)
             : console.log("Tried to select a full table");
         }}
       >
-        <div noGutters className="table-row">
+        <div className="mb-1">
           <div className="text-center">{getRow1()}</div>
         </div>
-        <div noGutters className="table-row">
+        <div className="mb-1">
           <div className="text-center">{getRow2()}</div>
         </div>
 
