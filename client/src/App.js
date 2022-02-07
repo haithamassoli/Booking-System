@@ -22,7 +22,7 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Navbar />
+      <Navbar loginStatus={loginStatus} />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/booking" element={<Booking />}></Route>

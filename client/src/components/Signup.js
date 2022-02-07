@@ -43,10 +43,10 @@ function Signup() {
       <h1 className="text-3xl text-center mt-4">Sign Up</h1>
 
       <form className="md:mx-auto max-w-2xl mx-6" onSubmit={handleSubmit}>
-        <div class="mb-6">
+        <div className="mb-6">
           <label
-            for="email"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+            htmlFor="email"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
           >
             Your Email
           </label>
@@ -60,10 +60,10 @@ function Signup() {
             required
           />
         </div>
-        <div class="mb-6">
+        <div className="mb-6">
           <label
-            for="password"
-            class="block mb-2 text-sm font-medium text-black dark:text-black"
+            htmlFor="password"
+            className="block mb-2 text-sm font-medium text-black dark:text-black"
           >
             Your Password
           </label>

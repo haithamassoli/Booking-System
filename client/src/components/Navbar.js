@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ loginStatus }) {
   return (
     <div className="p-8 bg-pink-600 flex justify-between items-center">
       <NavLink to={"/"} className="cursor-pointer text-2xl text-white">
@@ -15,18 +15,31 @@ function Navbar() {
         </div>
       </NavLink>
       <div>
-        <NavLink
-          to={"/login"}
-          className="cursor-pointer text-xl text-white hover:text-pink-200"
-        >
-          Login
-        </NavLink>
-        <NavLink
-          to={"/signup"}
-          className="ml-4 cursor-pointer text-xl text-white hover:text-pink-200"
-        >
-          SignUp
-        </NavLink>
+        {loginStatus == false ? (
+          <>
+            <NavLink
+              to={"/login"}
+              className="cursor-pointer text-xl text-white hover:text-pink-200"
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to={"/signup"}
+              className="ml-4 cursor-pointer text-xl text-white hover:text-pink-200"
+            >
+              SignUp
+            </NavLink>{" "}
+          </>
+        ) : (
+          <>
+            <NavLink
+              to={"/logout"}
+              className="cursor-pointer text-xl text-white hover:text-pink-200"
+            >
+              Logout
+            </NavLink>
+          </>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Table from "./Table";
 import { useNavigate } from "react-router-dom";
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/solid";
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 
 function Booking() {
   let navigate = useNavigate();
@@ -147,22 +153,29 @@ function Booking() {
 
     for (let i = 1; i < 8; i++) {
       newSizes.push(
-        <button
-          key={i}
-          className="booking-dropdown-item"
-          onClick={(e) => {
-            let newSel = {
-              ...selection,
-              table: {
-                ...selection.table,
-              },
-              size: i,
-            };
-            setSelection(newSel);
-          }}
-        >
-          {i}
-        </button>
+        <Menu.Item>
+          {({ active }) => (
+            <button
+              key={i}
+              className={classNames(
+                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                "w-full block px-4 py-2 text-sm"
+              )}
+              onClick={(e) => {
+                let newSel = {
+                  ...selection,
+                  table: {
+                    ...selection.table,
+                  },
+                  size: i,
+                };
+                setSelection(newSel);
+              }}
+            >
+              {i}
+            </button>
+          )}
+        </Menu.Item>
       );
     }
     return newSizes;
@@ -173,22 +186,29 @@ function Booking() {
     let newLocations = [];
     locations.forEach((loc) => {
       newLocations.push(
-        <button
-          key={loc}
-          className="booking-dropdown-item"
-          onClick={() => {
-            let newSel = {
-              ...selection,
-              table: {
-                ...selection.table,
-              },
-              location: loc,
-            };
-            setSelection(newSel);
-          }}
-        >
-          {loc}
-        </button>
+        <Menu.Item>
+          {({ active }) => (
+            <button
+              key={loc}
+              className={classNames(
+                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                "w-full block px-4 py-2 text-sm"
+              )}
+              onClick={() => {
+                let newSel = {
+                  ...selection,
+                  table: {
+                    ...selection.table,
+                  },
+                  location: loc,
+                };
+                setSelection(newSel);
+              }}
+            >
+              {loc}
+            </button>
+          )}
+        </Menu.Item>
       );
     });
     return newLocations;
@@ -199,22 +219,29 @@ function Booking() {
     let newTimes = [];
     times.forEach((time) => {
       newTimes.push(
-        <button
-          key={time}
-          className="booking-dropdown-item"
-          onClick={() => {
-            let newSel = {
-              ...selection,
-              table: {
-                ...selection.table,
-              },
-              time: time,
-            };
-            setSelection(newSel);
-          }}
-        >
-          {time}
-        </button>
+        <Menu.Item>
+          {({ active }) => (
+            <button
+              key={time}
+              className={classNames(
+                active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                "w-full block px-4 py-2 text-sm"
+              )}
+              onClick={() => {
+                let newSel = {
+                  ...selection,
+                  table: {
+                    ...selection.table,
+                  },
+                  time: time,
+                };
+                setSelection(newSel);
+              }}
+            >
+              {time}
+            </button>
+          )}
+        </Menu.Item>
       );
     });
     return newTimes;
@@ -254,41 +281,41 @@ function Booking() {
   };
 
   return (
-    <div>
-      <div noGutters className="text-center align-items-center pizza-cta">
-        <div>
-          <p className="looking-for-pizza">
-            {!selection.table.id ? "Book a Table" : "Confirm Reservation"}
-            <i
-              className={
-                !selection.table.id
-                  ? "fas fa-chair pizza-slice"
-                  : "fas fa-clipboard-check pizza-slice"
-              }
-            ></i>
-          </p>
-          <p className="selected-table">
-            {selection.table.id
-              ? "You are booking table " + selection.table.name
-              : null}
-          </p>
-
-          {reservationError ? (
-            <p className="reservation-error">
-              * Please fill out all of the details.
+    <>
+      <div>
+        <div className="text-center align-items-center mt-8">
+          <div>
+            <h1 className="text-5xl">
+              {!selection.table.id ? "Book a Table" : "Confirm Reservation"}
+              <i
+                className={
+                  !selection.table.id
+                    ? "fas fa-chair text-pink-600 ml-3 text-5xl"
+                    : "fas fa-clipboard-check text-pink-600 ml-3 text-5xl"
+                }
+              ></i>
+            </h1>
+            <p className="mt-6 text-3xl">
+              {selection.table.id
+                ? "You are booking table " + selection.table.name
+                : null}
             </p>
-          ) : null}
-        </div>
-      </div>
 
-      {!selection.table.id ? (
-        <div id="reservation-stuff">
-          <div noGutters className="text-center align-items-center">
-            <div xs="12" sm="3">
+            {reservationError ? (
+              <p className="text-red-500 mt-3">
+                * Please fill out all of the details.
+              </p>
+            ) : null}
+          </div>
+        </div>
+
+        {!selection.table.id ? (
+          <div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mx-8 text-center align-items-center">
               <input
                 type="date"
                 required="required"
-                className="booking-dropdown"
+                className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
                 value={selection.date.toISOString().split("T")[0]}
                 onChange={(e) => {
                   if (!isNaN(new Date(new Date(e.target.value)))) {
@@ -313,136 +340,199 @@ function Booking() {
                   }
                 }}
               ></input>
-            </div>
-            <div xs="12" sm="3">
-              <div>
-                <button color="none" caret className="booking-dropdown">
-                  {selection.time === null ? "Select a Time" : selection.time}
-                </button>
-                <div right className="booking-dropdown-menu">
-                  {getTimes()}
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                    {selection.time === null ? "Select a Time" : selection.time}
+                    <ChevronDownIcon
+                      className="-mr-1 ml-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  </Menu.Button>
                 </div>
-              </div>
-            </div>
-            <div xs="12" sm="3">
-              <div>
-                <button color="none" caret className="booking-dropdown">
-                  {selection.location}
-                </button>
-                <div right className="booking-dropdown-menu">
-                  {getLocations()}
-                </div>
-              </div>
-            </div>
-            <div xs="12" sm="3">
-              <div>
-                <button color="none" caret className="booking-dropdown">
-                  {selection.size === 0
-                    ? "Select a Party Size"
-                    : selection.size.toString()}
-                </button>
-                <div right className="booking-dropdown-menu">
-                  {getSizes()}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div noGutters className="tables-display">
-            <div>
-              {getEmptyTables() > 0 ? (
-                <p className="available-tables">{getEmptyTables()} available</p>
-              ) : null}
 
-              {selection.date && selection.time ? (
-                getEmptyTables() > 0 ? (
-                  <div>
-                    <div className="table-key">
-                      <span className="empty-table"></span> &nbsp; Available
-                      &nbsp;&nbsp;
-                      <span className="full-table"></span> &nbsp; Unavailable
-                      &nbsp;&nbsp;
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1">{getTimes()}</div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                    {selection.location}
+                    <ChevronDownIcon
+                      className="-mr-1 ml-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  </Menu.Button>
+                </div>
+
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1">{getLocations()}</div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                    {selection.size === 0
+                      ? "Select a Party Size"
+                      : selection.size.toString()}
+                    <ChevronDownIcon
+                      className="-mr-1 ml-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                  </Menu.Button>
+                </div>
+
+                <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Menu.Items className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1">{getSizes()}</div>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            </div>
+            <div className="tables-display">
+              <div>
+                {getEmptyTables() > 0 ? (
+                  <p className="available-tables">
+                    {getEmptyTables()} available
+                  </p>
+                ) : null}
+
+                {selection.date && selection.time ? (
+                  getEmptyTables() > 0 ? (
+                    <div>
+                      <div className="table-key">
+                        <span className="empty-table"></span> &nbsp; Available
+                        &nbsp;&nbsp;
+                        <span className="full-table"></span> &nbsp; Unavailable
+                        &nbsp;&nbsp;
+                      </div>
+                      <div>{getTables()}</div>
                     </div>
-                    <div noGutters>{getTables()}</div>
-                  </div>
+                  ) : (
+                    <p className="table-display-message">No Available Tables</p>
+                  )
                 ) : (
-                  <p className="table-display-message">No Available Tables</p>
-                )
-              ) : (
-                <p className="table-display-message">
-                  Please select a date and time for your reservation.
-                </p>
-              )}
+                  <p className="table-display-message">
+                    Please select a date and time for your reservation.
+                  </p>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        <div id="confirm-reservation-stuff">
-          <div
-            noGutters
-            className="text-center justify-center reservation-details-container"
-          >
-            <div xs="12" sm="3" className="reservation-details">
-              <input
-                type="text"
-                bsSize="lg"
-                placeholder="Name"
-                className="reservation-input"
-                value={booking.name}
-                onChange={(e) => {
-                  setBooking({
-                    ...booking,
-                    name: e.target.value,
-                  });
-                }}
-              />
+        ) : (
+          <div>
+            <div className="md:mx-auto max-w-2xl mx-6 mt-8">
+              <div className="mb-6">
+                <label
+                  htmlFor="name"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                >
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  bsSize="lg"
+                  placeholder="Name"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500"
+                  value={booking.name}
+                  onChange={(e) => {
+                    setBooking({
+                      ...booking,
+                      name: e.target.value,
+                    });
+                  }}
+                />
+              </div>
+              <div className="mb-6">
+                <label
+                  htmlFor="number"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                >
+                  Your Number
+                </label>
+                <input
+                  type="text"
+                  bsSize="lg"
+                  placeholder="Phone Number"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500"
+                  value={booking.phone}
+                  onChange={(e) => {
+                    setBooking({
+                      ...booking,
+                      phone: e.target.value,
+                    });
+                  }}
+                />
+              </div>
+              <div className="mb-6">
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                >
+                  Your Email
+                </label>
+                <input
+                  type="text"
+                  bsSize="lg"
+                  placeholder="Email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 dark:bg-white dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-pink-500 dark:focus:border-pink-500"
+                  value={booking.email}
+                  onChange={(e) => {
+                    setBooking({
+                      ...booking,
+                      email: e.target.value,
+                    });
+                  }}
+                />
+              </div>
             </div>
-            <div xs="12" sm="3" className="reservation-details">
-              <input
-                type="text"
-                bsSize="lg"
-                placeholder="Phone Number"
-                className="reservation-input"
-                value={booking.phone}
-                onChange={(e) => {
-                  setBooking({
-                    ...booking,
-                    phone: e.target.value,
-                  });
-                }}
-              />
-            </div>
-            <div xs="12" sm="3" className="reservation-details">
-              <input
-                type="text"
-                bsSize="lg"
-                placeholder="Email"
-                className="reservation-input"
-                value={booking.email}
-                onChange={(e) => {
-                  setBooking({
-                    ...booking,
-                    email: e.target.value,
-                  });
-                }}
-              />
+            <div className="text-center">
+              <div>
+                <button
+                  className="py-3 px-5 rounded-xl bg-pink-500 text-white ronded"
+                  onClick={() => {
+                    reserve();
+                  }}
+                >
+                  Book Now
+                </button>
+              </div>
             </div>
           </div>
-          <div noGutters className="text-center">
-            <div>
-              <button
-                color="none"
-                className="book-table-btn"
-                onClick={() => {
-                  reserve();
-                }}
-              >
-                Book Now
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 }
 
