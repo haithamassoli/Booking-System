@@ -432,7 +432,7 @@ function Booking() {
                   getEmptyTables() > 0 ? (
                     <div className="my-10">
                       <div className="text-white">
-                        <span className="border border-white bg-pink-500 rounded-full m-1 py-1 px-3"></span>
+                        <span className="border border-white bg-red-600 rounded-full m-1 py-1 px-3"></span>
                         &nbsp; Available &nbsp;&nbsp;
                         <span className="border border-white bg-white rounded-full m-1 py-1 px-3"></span>
                         &nbsp; Unavailable &nbsp;&nbsp;

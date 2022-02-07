@@ -9,7 +9,7 @@ function Table(props) {
           key={i}
           className={
             props.empty
-              ? "border bottom-2 border-white bg-pink-500 rounded-full m-1 py-1 px-3"
+              ? "border bottom-2 border-white bg-red-600 rounded-full m-1 py-1 px-3"
               : "border bottom-2 border-white bg-white rounded-full m-1 py-1 px-3"
           }
         ></span>
@@ -25,7 +25,7 @@ function Table(props) {
           key={i}
           className={
             props.empty
-              ? "border bottom-2 border-white bg-pink-500 rounded-full m-1 py-1 px-3"
+              ? "border bottom-2 border-white bg-red-600 rounded-full m-1 py-1 px-3"
               : "border bottom-2 border-white bg-white rounded-full m-1 py-1 px-3"
           }
         ></span>
